@@ -2,7 +2,6 @@
 
 use Handlebars\Context;
 use Handlebars\Helper;
-use Handlebars\Template;
 use \InvalidArgumentException;
 use Rareloop\Primer\TemplateEngine\Handlebars\Template;
 use Rareloop\Primer\Primer;
@@ -22,7 +21,7 @@ class IncHelper implements Helper
      *
      * @return mixed
      */
-    public function execute(Template $template, Context $context, $args, $source)
+    public function execute(\Handlebars\Template $template, Context $context, $args, $source)
     {
         $args = explode(' ', $args);
                     
