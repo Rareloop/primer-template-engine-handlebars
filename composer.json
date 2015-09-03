@@ -1,0 +1,13 @@
+{
+    "name": "rareloop/primer-template-engine-handlebars",
+    "description": "Handlebars template engine for Primer",
+    
+    "require": {
+        "xamin/handlebars.php": "0.10.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rareloop\\Primer\\TemplateEngine\\Handlebars": "src/Handlebars"
+        }
+    }
+}
