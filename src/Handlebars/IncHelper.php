@@ -93,7 +93,7 @@ class IncHelper implements Helper
                 }
             }
 
-            $template = new HandlebarsTemplate(Primer::$BASE_PATH . '/patterns/' . $patternId, 'template');
+            $template = new Template(Primer::$BASE_PATH . '/patterns/' . $patternId, 'template');
 
             // Get the default data for this pattern
             $defaultData = FileSystem::getDataForPattern($partialId, true);
