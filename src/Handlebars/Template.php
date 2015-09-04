@@ -14,7 +14,7 @@ class Template extends PrimerTemplate
      *
      * @var array
      */
-    protected $extension = 'hbs';
+    public static $extension = 'hbs';
 
     public function load($directory, $filename)
     {
@@ -22,7 +22,7 @@ class Template extends PrimerTemplate
 
         $template = false;
 
-        $path = $directory . '/' . $filename . '.' . $this->extension;
+        $path = $directory . '/' . $filename . '.' . self::$extension;
 
         if(is_file($path)) {
             $template = file_get_contents($path);
