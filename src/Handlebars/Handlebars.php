@@ -36,7 +36,7 @@ class Handlebars extends \Handlebars\Handlebars
         if (!isset(self::$_instance)) {
             self::$_instance = new Handlebars();
 
-            Event::fire('handlebars.new', self::$_instance);
+            Event::fire('handlebars.init', self::$_instance);
         }
 
         return self::$_instance;
