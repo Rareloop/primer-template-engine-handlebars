@@ -5,8 +5,6 @@ use Rareloop\Primer\TemplateEngine\Handlebars\Handlebars;
 // use \Handlebars\Handlebars;
 use Rareloop\Primer\Primer;
 
-
-
 class Template extends PrimerTemplate
 {
     /**
@@ -24,11 +22,11 @@ class Template extends PrimerTemplate
 
         $path = $directory . '/' . $filename . '.' . self::$extension;
 
-        if(is_file($path)) {
+        if (is_file($path)) {
             $template = file_get_contents($path);
         }
 
-        if(!$template) {
+        if (!$template) {
             throw new \Exception('Template can not be found: ' . $directory . '/' . $filename);
         }
 
@@ -40,5 +38,10 @@ class Template extends PrimerTemplate
         $engine = Handlebars::instance();
 
         return $engine->render($this->template, $data);
+    }
+
+    public function raw()
+    {
+        return $this->template;
     }
 }

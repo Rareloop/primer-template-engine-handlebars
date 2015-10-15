@@ -25,6 +25,7 @@ class Handlebars extends \Handlebars\Handlebars
      */
     public function __construct(array $options = array())
     {
+        $options['partials_loader'] = new Loader();
         parent::__construct($options);
 
         // Register a helper to include sub patterns
