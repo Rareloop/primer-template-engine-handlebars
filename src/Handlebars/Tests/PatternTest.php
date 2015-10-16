@@ -1,6 +1,9 @@
-<?php namespace Rareloop\Primer\TemplateEngine\Handlebars\Tests;
+<?php
+
+namespace Rareloop\Primer\TemplateEngine\Handlebars\Tests;
 
 use Rareloop\Primer\Events\Event;
+use Rareloop\Primer\TemplateEngine\Handlebars\Template;
 
 class PatternTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,8 +15,8 @@ class PatternTest extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         $this->primer = \Rareloop\Primer\Primer::start(array(
-            'basePath' => __DIR__.'/primer-test', 
-            'templateClass' => '\Rareloop\Primer\TemplateEngine\Handlebars\Template'
+            'basePath' => __DIR__.'/primer-test',
+            'templateClass' => Template::class,
         ));
     }
 
@@ -34,13 +37,23 @@ class PatternTest extends \PHPUnit_Framework_TestCase
     {
         $output = $this->primer->getPatterns(array('components/test-group/data-autoload'), false);
 
-        $this->assertEquals($output, 'Title autoloaded from data.json');
+        $this->assertEquals($output, '1.2');
+    }
+
+    /**
+     * An aliased pattern should merge data files
+     */
+    public function testAliasData()
+    {
+        $output = $this->primer->getPatterns(array('components/test-group/data-autoload~alias'), false);
+
+        $this->assertEquals($output, '1.3');
     }
 
     /**
      * Include one pattern in another
      */
-    public function testCustomIncludeFunction()
+    public function testIncludeFunction()
     {
         $output = $this->primer->getPatterns(array('components/test-group/include-basic'), false);
 
@@ -48,69 +61,19 @@ class PatternTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test when a pattern is included that itself has default data
-     */
-    public function testCustomIncludeFunctionWithDefaultData()
-    {
-        $output = $this->primer->getPatterns(array('components/test-group/include-default-data'), false);
-
-        $this->assertEquals($output, 'Title autoloaded from data.json');
-    }
-
-    /**
      * Test when a pattern is included that itself has default data but the parent pattern overrides the data
      */
-    public function testCustomIncludeFunctionWithOverriddenData()
-    {
-        $output = $this->primer->getPatterns(array('components/test-group/include-override-data'), false);
-
-        $this->assertEquals($output, 'Data overridden in parent data.json');
-    }
-
-    /**
-     * Test when a pattern is included that itself has default data but the parent pattern overrides the data
-     */
-    public function testCustomIncludeFunctionWithInlineData()
+    public function testIncludeFunctionWithInlineData()
     {
         $output = $this->primer->getPatterns(array('components/test-group/include-inline-data'), false);
 
-        $this->assertEquals($output, 'Inlined data');
-    }
-
-    /**
-     * Test that including an aliased pattern finds the template.twig file from the parent
-     */
-    public function testCustomIncludeWithAliasedPattern()
-    {
-        $output = $this->primer->getPatterns(array('components/test-group/include-aliased'), false);
-
-        $this->assertEquals($output, 'Basic pattern with no data');
-    }
-
-    /**
-     * Test that including an aliased pattern with overridden data works
-     */
-    public function testCustomIncludeWithAliasedPatternAndOverriddenData()
-    {
-        $output = $this->primer->getPatterns(array('components/test-group/include-aliased-override-data'), false);
-
-        $this->assertEquals($output, 'Title overridden from child data.json');
-    }
-
-    /**
-     * Test that including an aliased pattern with inline data works
-     */
-    public function testCustomIncludeWithAliasedPatternAndInlineData()
-    {
-        $output = $this->primer->getPatterns(array('components/test-group/include-aliased-inline-data'), false);
-
-        $this->assertEquals($output, 'Inline data');
+        $this->assertEquals($output, 'Inlined data.');
     }
 
     /**
      * Test when there are more than one param passed to a partial
      */
-    public function testCustomIncludeWithMultipleParams()
+    public function testIncludeWithMultipleParams()
     {
         $output = $this->primer->getPatterns(array('components/test-group/include-multi-inline-data'), false);
 
@@ -120,11 +83,30 @@ class PatternTest extends \PHPUnit_Framework_TestCase
     /**
      * Test when passing a variable to interpolate into a partial (e.g. title=subTitle instead of title='The subtitle')
      */
-    public function testCustomIncludeWithInterpolatedInlineData()
+    public function testIncludeWithInterpolatedInlineData()
     {
         $output = $this->primer->getPatterns(array('components/test-group/include-interpolated-inline-data'), false);
 
         $this->assertEquals($output, 'success');
     }
+
+    /**
+     * Test when passing a new context into a partial
+     */
+    public function testIncludeWithInlineContext()
+    {
+        $output = $this->primer->getPatterns(array('components/test-group/include-with-inline-context'), false);
+
+        $this->assertEquals($output, 'new context');
+    }
+
+    /**
+     * Test when passing a new context into a partial
+     */
+    public function testIncludeNonPrimerPartial()
+    {
+        $output = $this->primer->getPatterns(array('components/test-group/include-non-primer-partial'), false);
+
+        $this->assertEquals($output, 'child');
+    }
 }
-?>

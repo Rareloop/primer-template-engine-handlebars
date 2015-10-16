@@ -37,7 +37,7 @@ class Template extends PrimerTemplate
     {
         $engine = Handlebars::instance();
 
-        return $engine->render($this->template, $data);
+        return $engine->render($this->template, $data->toArray());
     }
 
     public function raw()

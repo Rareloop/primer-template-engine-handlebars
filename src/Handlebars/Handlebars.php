@@ -27,9 +27,6 @@ class Handlebars extends \Handlebars\Handlebars
     {
         $options['partials_loader'] = new Loader();
         parent::__construct($options);
-
-        // Register a helper to include sub patterns
-        $this->getHelpers()->add('inc', new IncHelper());
     }
 
     public static function instance()
