@@ -13,7 +13,6 @@ class Loader implements \Handlebars\Loader
 
     public function __construct()
     {
-        var_dump(Primer::$PATTERN_PATH);
         $this->filesystemLoader = new FilesystemLoader(Primer::$PATTERN_PATH, [
             "extension" => Template::$extension,
         ]);
