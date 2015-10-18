@@ -6,11 +6,17 @@
         "xamin/handlebars.php": "0.10.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.8.*"
+        "rareloop/primer-core": "dev-refactor"
     },
     "autoload": {
         "psr-4": {
             "Rareloop\\Primer\\TemplateEngine\\Handlebars\\": "src/Handlebars"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:joelambert/primer-core.git"
+        }
+    ]
 }

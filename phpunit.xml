@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="../../../../../autoload.php"
+<phpunit bootstrap="phpunit.php"
          colors="true">
     <testsuites>
         <testsuite name="Handlebars Engine">
-            <directory>.</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
