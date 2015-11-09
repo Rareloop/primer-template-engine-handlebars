@@ -3,6 +3,7 @@
     "description": "Handlebars template engine for Primer",
     
     "require": {
+        "php": ">=5.5",
         "xamin/handlebars.php": "0.10.*"
     },
     "require-dev": {
