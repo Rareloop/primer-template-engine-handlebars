@@ -27,13 +27,13 @@ class Loader implements \Handlebars\Loader
      */
     public function load($name)
     {
-        // Assume that most of the time we'll be including patterns
-        $id = Primer::cleanId($name);
+        $primerTemplate = $name . '.' . Template::$extension;
+        $primerTemplateFromInclude = Primer::$PATTERN_PATH . '/' . $name . '/template.' . Template::$extension;
 
-        $path = Primer::$PATTERN_PATH . '/' . $id . '.' . Template::$extension;
-
-        if (is_file($path)) {
-            return file_get_contents($path);
+        if (is_file($primerTemplate)) {
+            return file_get_contents($primerTemplate);
+        } elseif (is_file($primerTemplateFromInclude)) {
+            return file_get_contents($primerTemplateFromInclude);
         } else {
             // We didn't get a pattern match, so we should try the filesystem loader instead
             return $this->filesystemLoader->load($name);

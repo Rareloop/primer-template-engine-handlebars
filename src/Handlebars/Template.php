@@ -21,11 +21,7 @@ class Template extends PrimerTemplate
 
         $path = $directory . '/' . $filename;
 
-        // The Handlebars loader is setup to load from the Primer base path so we need to remove this
-        // from the template path so that we have it relative to the base
-        $id = str_replace(Primer::$PATTERN_PATH, '', $path);
-
-        $template = Handlebars::instance()->getPartialsLoader()->load($id);
+        $template = Handlebars::instance()->getPartialsLoader()->load($path);
 
         if ($template === false) {
             throw new \Exception('Template can not be found: ' . $directory . '/' . $filename);
@@ -38,7 +34,7 @@ class Template extends PrimerTemplate
     {
         $engine = Handlebars::instance();
 
-        return $engine->render($this->template, $data->toArray());
+        return $engine->render((string)$this->template, $data->toArray());
     }
 
     public function raw()
