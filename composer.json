@@ -1,6 +1,7 @@
 {
     "name": "rareloop/primer-template-engine-handlebars",
     "description": "Handlebars template engine for Primer",
+    "license": "MIT",
     
     "require": {
         "php": ">=5.5",
