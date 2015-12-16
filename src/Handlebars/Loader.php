@@ -30,9 +30,9 @@ class Loader implements \Handlebars\Loader
         // Assume that most of the time we'll be including patterns
         $id = Primer::cleanId($name);
 
-        $path = Primer::$PATTERN_PATH . '/' . $id . '/template.' . Template::$extension;
+        $path = Primer::$PATTERN_PATH . '/' . $id . '.' . Template::$extension;
 
-        if (file_exists($path)) {
+        if (is_file($path)) {
             return file_get_contents($path);
         } else {
             // We didn't get a pattern match, so we should try the filesystem loader instead

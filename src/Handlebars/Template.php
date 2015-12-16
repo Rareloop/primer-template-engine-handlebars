@@ -2,7 +2,6 @@
 
 use Rareloop\Primer\Templating\Template as PrimerTemplate;
 use Rareloop\Primer\TemplateEngine\Handlebars\Handlebars;
-// use \Handlebars\Handlebars;
 use Rareloop\Primer\Primer;
 
 class Template extends PrimerTemplate
@@ -20,13 +19,15 @@ class Template extends PrimerTemplate
 
         $template = false;
 
-        $path = $directory . '/' . $filename . '.' . self::$extension;
+        $path = $directory . '/' . $filename;
 
-        if (is_file($path)) {
-            $template = file_get_contents($path);
-        }
+        // The Handlebars loader is setup to load from the Primer base path so we need to remove this
+        // from the template path so that we have it relative to the base
+        $id = str_replace(Primer::$PATTERN_PATH, '', $path);
 
-        if (!$template) {
+        $template = Handlebars::instance()->getPartialsLoader()->load($id);
+
+        if ($template === false) {
             throw new \Exception('Template can not be found: ' . $directory . '/' . $filename);
         }
 

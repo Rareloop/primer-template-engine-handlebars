@@ -1,7 +1,6 @@
 <?php namespace Rareloop\Primer\TemplateEngine\Handlebars;
 
 use Rareloop\Primer\FileSystem;
-use Rareloop\Primer\TemplateEngine\Handlebars\IncHelper;
 use Rareloop\Primer\Events\Event;
 
 class Handlebars extends \Handlebars\Handlebars
